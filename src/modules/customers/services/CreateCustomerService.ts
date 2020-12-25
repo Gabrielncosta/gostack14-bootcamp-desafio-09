@@ -1,5 +1,4 @@
-import { inject, injectable } from 'tsyringe';
-import { container } from 'tsyringe'
+import { container, inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import Customer from '../infra/typeorm/entities/Customer';
@@ -18,6 +17,12 @@ class CreateCustomerService {
   ) {}
 
   public async execute({ name, email }: IRequest): Promise<Customer> {
+    const isEmailInUse = await this.customersRepository.findByEmail(email)
+
+    if(isEmailInUse) {
+      throw new AppError("This email is already in use.")
+    }
+
     const customer = await this.customersRepository.create({ name, email });
 
     return customer;
