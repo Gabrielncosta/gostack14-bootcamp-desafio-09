@@ -7,10 +7,12 @@ import FindOrderService from '@modules/orders/services/FindOrderService';
 
 export default class OrdersController {
   public async show(request: Request, response: Response): Promise<Response> {
+    return response.json({ ok: true });
     // TODO
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
+    return response.json({ ok: true });
     // TODO
   }
 }
